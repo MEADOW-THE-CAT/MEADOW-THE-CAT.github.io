@@ -1,0 +1,190 @@
+﻿<!DOCKTYPE html>
+<html>
+<head>
+<title>Blimp wars</title>
+</head>
+
+<body>
+<script>
+
+var canvas = document.createElement('canvas');
+var WIDTH = 900;
+var HEIGHT = 600;
+canvas.width = WIDTH;
+canvas.height = HEIGHT;
+var c = canvas.getContext('2d');
+window.addEventListener('load', start);
+
+// variables
+var blimpX = 10;
+var blimpY = 100;
+var spaceDown = false;
+var leftDown = false;
+var rightDown = false;
+var blimpWidth = 100;
+var blimpHeight = 50;
+var blimpSpeed = 5;
+var maxHealth = 10
+var blimpHealth = maxHealth;
+var enemyHeight = 70;
+var enemyWidth = 40;
+var enemyX = 50;
+var enemyY = HEIGHT - enemyHeight;
+var enemyHealth = 1;
+var cannonX = 300;
+var cannonY = 300;
+var bombX = -50;
+var bombY = -50;
+var bombHeight = 30;
+var bombWidth = 30;
+var level = 1;
+healthBarWidth = 200;
+
+function start() {
+window.requestAnimationFrame(gameLoop);
+window.addEventListener('keydown', keyDown);
+window.addEventListener('keyup', keyUp);
+}
+
+function gameLoop() {
+window.requestAnimationFrame(gameLoop);
+if (!blimpHealth <= 0) {
+draw();
+move();
+enemyShoot();
+touchingCannon();
+dropBomb();
+touchingBomb();
+} else {
+c.textAlign = 'center';
+c.font = '60px sans-serif';
+c.fillStyle = 'black';
+c.fillText('You Lose', WIDTH / 2, HEIGHT / 2);
+c.font = '40px sans-serif';
+c.fillText('Your Score Was ' + String(level), WIDTH / 2, HEIGHT / 2 + 70);
+}
+}
+
+function draw() {
+c.clearRect(0, 0, WIDTH, HEIGHT);
+c.fillStyle = 'blue';
+// draw blimp
+c.fillRect(blimpX, blimpY, blimpWidth, blimpHeight);
+// draw enemy/gun thingy trying to shoot the blimp down
+c.fillStyle = 'black';
+c.fillRect(enemyX, enemyY, enemyWidth, enemyHeight);
+// draw cannonball
+c.fillRect(cannonX, cannonY, 20, 20);
+// draw bomb
+c.fillStyle = 'red';
+c.fillRect(bombX, bombY, bombWidth, bombHeight);
+// draw health bar
+c.fillStyle = 'black';
+c.fillRect(WIDTH - healthBarWidth, 10, healthBarWidth, 20);
+c.fillStyle = 'red';
+c.fillRect(WIDTH - healthBarWidth, 10, blimpHealth / maxHealth * healthBarWidth, 20);
+}
+
+function keyDown(event) {
+if (event.key === 'ArrowRight') {
+rightDown = true;
+}
+if (event.key === 'ArrowLeft') {
+leftDown = true;
+}
+if (event.key === ' ') {
+spaceDown = true;
+}
+}
+
+function keyUp(event) {
+if (event.key === 'ArrowRight') {
+rightDown = false;
+}
+if (event.key === 'ArrowLeft') {
+leftDown = false;
+}
+if (event.key === ' ') {
+spaceDown = false;
+}
+}
+
+function move() {
+if (leftDown && blimpX > 0) {
+blimpX -= blimpSpeed;
+}
+if (rightDown && blimpX < WIDTH - blimpWidth) {
+blimpX += blimpSpeed;
+}
+}
+
+var shooting = 0;
+var copyBlimpX = 0;
+var copyBlimpY = 0;
+function enemyShoot() {
+if (shooting < 1) {
+shooting = 100;
+cannonX = enemyX;
+cannonY = enemyY;
+copyBlimpX = blimpX + blimpWidth / 2;
+copyBlimpY = blimpY;
+} else {
+shooting -= 1;
+if (copyBlimpX < cannonX) {
+cannonX -= 3;
+}
+if (copyBlimpX > cannonX) {
+cannonX += 3;
+}
+cannonY -= Math.ceil(level / 5) + 3;
+}
+}
+
+function touchingCannon() {
+if (cannonY < blimpY + blimpHeight && cannonX >= blimpX && cannonX <= blimpX + blimpWidth) {
+blimpHealth -= 1;
+shooting = 0;
+}
+}
+
+canDropBomb = true;
+function dropBomb() {
+if (spaceDown && canDropBomb) {
+bombX = blimpX + blimpWidth / 2;
+bombY = blimpY;
+canDropBomb = false;
+}
+if (!canDropBomb) {
+bombY += 3;
+}
+if (bombY > HEIGHT - bombHeight) {
+canDropBomb = true;
+}
+if (canDropBomb) {
+bombX = -50;
+bombY = -50;
+}
+}
+
+function touchingBomb() {
+//console.log(canDropBomb);
+if (bombY > HEIGHT - enemyHeight && bombX + bombWidth >= enemyX && bombX < enemyX + enemyWidth) {
+canDropBomb = true;
+moveEnemy();
+}
+}
+
+function moveEnemy() {
+enemyHealth -= 1;
+if (enemyHealth <= 0) {
+level ++;
+enemyX = Math.random() * (WIDTH - blimpWidth);
+enemyHealth = Math.ceil(level / 5);
+}
+}
+
+document.body.appendChild(canvas);
+
+</script>
+</body>
+</html>
