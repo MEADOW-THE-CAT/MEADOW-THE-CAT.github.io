@@ -141,7 +141,7 @@ cannonY -= Math.ceil(level / 5) + 3;
 }
 
 function touchingCannon() {
-if (cannonY < blimpY + blimpHeight && cannonX >= blimpX && cannonX <= blimpX + blimpWidth) {
+if (cannonY < blimpY + blimpHeight && cannonX >= blimpX && cannonX <= blimpX + blimpWidth && cannonY - 20 > blimpY) {
 blimpHealth -= 1;
 shooting = 0;
 }
