@@ -178,7 +178,7 @@ function moveEnemy() {
 enemyHealth -= 1;
 if (enemyHealth <= 0) {
 level ++;
-enemyX = Math.random() * (WIDTH - blimpWidth * 2);
+enemyX = Math.random() * (WIDTH - blimpWidth);
 enemyHealth = Math.ceil(level / 5);
 }
 }
