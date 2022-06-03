@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>Tic Tac Toe</title>
+</head>
+<body>
+<p onClick="line1Clicked(event)" id="line1" style="font-size:50px;">
+<p onClick="line2Clicked(event)" id="line2" style="font-size:50px;">
+<p onClick="line3Clicked(event)" id="line3" style="font-size:50px;">
+<p id="win" style="font-size:100px;">
+<script>
+var spaces = {taken1:'☐', taken2:'☐', taken3:'☐', taken4:'☐', taken5:'☐', taken6:'☐', taken7:'☐', taken8:'☐', taken9:'☐'};
+var turn = 'X';
+var game = {over:false, winner:''};
+
+function line1Clicked(event) {
+if (!game.over) {
+if (event.clientX <= 48 && spaces.taken1 === '☐') {
+spaces.taken1 = turn;
+nextTurn();
+}
+if (event.clientX > 48 && event.clientX <= 93 && spaces.taken2 === '☐') {
+spaces.taken2 = turn;
+nextTurn();
+}
+if (event.clientX > 93 && spaces.taken3 === '☐') {
+spaces.taken3 = turn;
+nextTurn();
+}
+winner();
+document.getElementById('line1').innerHTML = spaces.taken1 + spaces.taken2 + spaces.taken3;
+}
+}
+
+function line2Clicked(event) {
+if (!game.over) {
+if (event.clientX <= 48 && spaces.taken4 === '☐') {
+spaces.taken4 = turn;
+nextTurn();
+}
+if (event.clientX > 48 && event.clientX <= 93 && spaces.taken5 === '☐') {
+spaces.taken5 = turn;
+nextTurn();
+}
+if (event.clientX > 93 && spaces.taken6 === '☐') {
+spaces.taken6 = turn;
+nextTurn();
+}
+winner();
+document.getElementById('line2').innerHTML = spaces.taken4 + spaces.taken5 + spaces.taken6;
+}
+}
+
+function line3Clicked(event) {
+if (!game.over) {
+if (event.clientX <= 48 && spaces.taken7 === '☐') {
+spaces.taken7 = turn;
+nextTurn();
+}
+if (event.clientX > 48 && event.clientX <= 93 && spaces.taken8 === '☐') {
+spaces.taken8 = turn;
+nextTurn();
+}
+if (event.clientX > 93 && spaces.taken9 === '☐') {
+spaces.taken9 = turn;
+nextTurn();
+}
+winner();
+document.getElementById('line3').innerHTML = spaces.taken7 + spaces.taken8 + spaces.taken9;
+}
+}
+
+function nextTurn() {
+if (turn === 'X') {turn = 'O';} else {turn = 'X';}
+}
+
+function winner() {
+if (spaces.taken1 === 'X' && spaces.taken2 === 'X' && spaces.taken3 === 'X' || spaces.taken4 === 'X' && spaces.taken5 === 'X' && spaces.taken6 === 'X'
+|| spaces.taken7 === 'X' && spaces.taken8 === 'X' && spaces.taken9 === 'X' || spaces.taken1 === 'X' && spaces.taken5 === 'X' && spaces.taken9 === 'X' ||
+spaces.taken3 === 'X' && spaces.taken5 === 'X' && spaces.taken7 === 'X' || spaces.taken1 === 'X' && spaces.taken4 === 'X' && spaces.taken7 === 'X' ||
+spaces.taken2 === 'X' && spaces.taken5 === 'X' && spaces.taken8 === 'X' || spaces.taken3 === 'X' && spaces.taken6 === 'X' && spaces.taken9 === 'X') {
+game.over = true;
+game.winner = 'X';
+showWinner();
+}
+
+if (spaces.taken1 === 'O' && spaces.taken2 === 'O' && spaces.taken3 === 'O' || spaces.taken4 === 'O' && spaces.taken5 === 'O' && spaces.taken6 === 'O'
+|| spaces.taken7 === 'O' && spaces.taken8 === 'O' && spaces.taken9 === 'O' || spaces.taken1 === 'O' && spaces.taken5 === 'O' && spaces.taken9 === 'O' ||
+spaces.taken3 === 'O' && spaces.taken5 === 'O' && spaces.taken7 === 'O' || spaces.taken1 === 'O' && spaces.taken4 === 'O' && spaces.taken7 === 'O' ||
+spaces.taken2 === 'O' && spaces.taken5 === 'O' && spaces.taken8 === 'O' || spaces.taken3 === 'O' && spaces.taken6 === 'O' && spaces.taken9 === 'O') {
+game.over = true;
+game.winner = 'O';
+showWinner();
+}
+}
+
+function showWinner() {
+document.getElementById('win').innerHTML = 'The Winner Is ' + game.winner;
+}
+
+document.getElementById('line1').innerHTML = spaces.taken1 + spaces.taken2 + spaces.taken3;
+document.getElementById('line2').innerHTML = spaces.taken4 + spaces.taken5 + spaces.taken6;
+document.getElementById('line3').innerHTML = spaces.taken7 + spaces.taken8 + spaces.taken9;
+</script>
+</body>
+</html>
