@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html>
     <head>
@@ -15,13 +15,44 @@
     <body style="background-color:grey;">
 
         <h1>Epic Website</h1>
-        <a href="Blimp-wars.htm"><img src="blimp-wars-image.png" width="150" height="150" alt="Click to play blimp wars"></a>
-        <a href="jumpy.htm"><img src="jumpy-image.png" width="150" height="150" alt="Click to play jumpy"></a>
-        <a href="epic_game.htm"><img src="enemy-escape-image.png" width="150" height="150" alt="Click to play enemy escape"></a>
-        <a href="2-player battle.htm"><img src="2-player battle image.png" width="150" height="150" alt="Click to play 2 Player Battles"></a>
-        <a href="tic tac toe.htm"><img src="tic tac toe.png" width="150" height="150" alt="Click to play tic tac toe"></a>
-        
-        
+        <a href="Blimp-wars.htm" onmouseover="showDes(1)"><img src="blimp-wars-image.png" width="150" height="150" alt="Click to play blimp wars"></a>
+        <a href="jumpy.htm" onmouseover="showDes(2)"><img src="jumpy-image.png" width="150" height="150" alt="Click to play jumpy"></a>
+        <a href="epic_game.htm" onmouseover="showDes(3)"><img src="enemy-escape-image.png" width="150" height="150" alt="Click to play enemy escape"></a>
+	<a href="2-player battle.htm" onmouseover="showDes(4)"><img src="2-player battle image.png" width="150" height="150" alt="Click to play 2 Player Battles"></a>
+	<a href="tic tac toe.htm" onmouseover="showDes(5)"><img src="tic tac toe.png" width="150" height="150" alt="Click to play tic tac toe"></a>
+	<h2 style="font-size:40px;">How to play<h2>
+	<p id="des1" style="font-size:20px;">
+	<p id="des2" style="font-size:20px;">
+	<p id="des3" style="font-size:20px;">
+<script>
+function showDes(num) {
+if (num == 1) {
+document.getElementById('des1').innerHTML = 'You are the blue blimp, use the left arrow to go left and the right arrow to go right.';
+document.getElementById('des2').innerHTML = 'Press the space bar to brop a bomb. Drop bombs on the cannon on the ground shooting at you.';
+document.getElementById('des3').innerHTML = 'As you progress the cannon will have more health.';
+}
+if (num == 2) {
+document.getElementById('des1').innerHTML = 'Press the rigth arrow to go right and the left arrow to go left.';
+document.getElementById('des2').innerHTML = "Press the up arrow to jump and the down arrow to shoot in the direction you're pointing.";
+document.getElementById('des3').innerHTML = 'The number in the top left corner counts how much ammo you have'; 
+}
+if (num == 3) {
+document.getElementById('des1').innerHTML = 'Use the arrow keys to run away from the monster chasing you!';
+document.getElementById('des2').innerHTML = '';
+document.getElementById('des3').innerHTML = '';
+}
+if (num == 4) {
+document.getElementById('des1').innerHTML = 'Player 1 uses wasd to move and f to shoot.';
+document.getElementById('des2').innerHTML = 'Player 2 uses the arrow keys to move and m to shoot';
+document.getElementById('des3').innerHTML = '';
+}
+if (num == 5) {
+document.getElementById('des1').innerHTML = 'Take turns clicking where you want to go.';
+document.getElementById('des2').innerHTML = '';
+document.getElementById('des3').innerHTML = '';
+}
+}
+</script>
     </body>
 
 </html>
