@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Blimp wars</title>
 </head>
 
@@ -117,33 +116,26 @@ if (rightDown && blimpX < WIDTH - blimpWidth) {
 blimpX += blimpSpeed;
 }
 }
-
-var shooting = 0;
+var t = 0;
 var copyBlimpX = 0;
 var copyBlimpY = 0;
 function enemyShoot() {
-if (shooting < 1) {
-shooting = 100;
-cannonX = enemyX;
-cannonY = enemyY;
+if (t >= 1) {
+t = 0;
 copyBlimpX = blimpX + blimpWidth / 2;
 copyBlimpY = blimpY;
 } else {
-shooting -= 1;
-if (copyBlimpX < cannonX) {
-cannonX -= 3;
-}
-if (copyBlimpX > cannonX) {
-cannonX += 3;
-}
-cannonY -= Math.ceil(level / 5) + 3;
+var cannonPosition = lerp(enemyX, enemyY, copyBlimpX, copyBlimpY, t);
+cannonX = cannonPosition.x;
+cannonY = cannonPosition.y;
+t += 0.005 + level * 0.001;
 }
 }
 
 function touchingCannon() {
 if (cannonY < blimpY + blimpHeight && cannonX >= blimpX && cannonX <= blimpX + blimpWidth && cannonY - 20 > blimpY) {
 blimpHealth -= 1;
-shooting = 0;
+t = 0;
 }
 }
 
@@ -183,8 +175,11 @@ enemyHealth = Math.ceil(level / 5);
 }
 }
 
+function lerp(fromX, fromY, toX, toY, t) {
+  return {x: fromX + (toX - fromX) * t, y: fromY + (toY - fromY) * t};
+}
+
 document.body.appendChild(canvas);
 
 </script>
-</body>
-</html>
+</body></html>
